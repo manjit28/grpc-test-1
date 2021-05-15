@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package product;
+
+message Product {
+	string id = 1;
+	string name = 2;
+	string description = 3;
+}
+
+message CreateProductRequest {
+	Product product = 1; 
+}
+
+message CreateProductResponse {
+	Product product = 1; 
+}
+
+message GetProductRequest {
+	string product_id = 1;
+}
+
+message GetProductResponse {
+	Product product = 1;
+}
+
+message UpdateProductRequest {
+	Product product = 1;
+}
+
+message UpdateProductResponse {
+	Product product = 1;
+}
+
+message DeleteProductRequest {
+	string product_id = 1;
+}
+
+message DeleteProductRepsponse {
+	string status = 1;
+}
+
+message GetAllProductsRequest {
+    // normally would not have method like this but this is 
+	// just to point that we always have to pass an object even if it is empty
+}
+
+message GetAllProductsResponse {
+	//typically this would be array/list of objects but here it is stream of single object
+	//can use repeated in signature to get that
+	Product product = 1;
+}
+
+service ProductService {
+	rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse) {}
+	rpc GetProduct (GetProductRequest) returns (GetProductResponse) {}
+	rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse) {}
+	rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductRepsponse) {}
+	rpc GetAllProducts (GetAllProductsRequest) returns (stream GetAllProductsResponse) {}
+	rpc CreateProducts (stream CreateProductRequest) returns (stream CreateProductResponse) {}
+}
